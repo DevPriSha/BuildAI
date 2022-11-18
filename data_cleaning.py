@@ -33,14 +33,14 @@ def clean_data_timeseries(df):
     return df
 
 #clean data for classification
-def clean_data_classification(df):
+def clean_data_classification(df, label='label'):
     df = df.dropna()
     df = df.drop_duplicates()
     try:
         df = df.drop(['id'], axis=1)
     except:
         pass
-    df = pd.Categorical.codes(df['label']) 
+    df[label] = pd.Categorical(df[label]).codes 
     return df
 
 #clean data for regression
@@ -53,13 +53,13 @@ def clean_data_regression(df):
         pass
     return df
 
-def clean_data(df, task = 'sentiment'):
+def clean_data(df, label='label', task = 'sentiment'):
     if task == 'sentiment':
         df = clean_data_sentiment(df)
     elif task == 'timeseries':
         df = clean_data_timeseries(df)
     elif task == 'classification':
-        df = clean_data_classification(df)
+        df = clean_data_classification(df, label)
     elif task == 'regression':
         df = clean_data_regression(df)
     return df
@@ -92,14 +92,16 @@ def extract_features_text(df, vectorizer='tfidf', features=['text']):
     return X
 
 #extract features numerical
-def extract_features(df, vectorizer='tfidf', features=['text'], label='label'):
-#X is a matrix of numeric features
+def extract_features(df, features=['text'], label='label', vectorizer='tfidf'):
+#X is a matrix of numeric features   
+    df2 = pd.DataFrame()
     for feature in features:
-        if feature.dtype == 'int64' or feature.dtype == 'float64':
-            X = df[feature]
+        if df[feature].dtype == 'int64' or df[feature].dtype == 'float64':
+            df2[feature] = df[feature].astype(df[feature].dtype)
+            X = df2.values
         else:
             X = extract_features_text(df, vectorizer)
-        X_train, X_test, y_train, y_test = train_test_split(X, df, label)
+    X_train, X_test, y_train, y_test = train_test_split(X, df, label)
     return X_train, X_test, y_train, y_test
 
 
