@@ -1,18 +1,18 @@
 
 
 #import stuff
-from sklearn.linear_model import LogisticRegression, SGDClassifier,PassiveAggressiveClassifier, RidgeClassifier, Perceptron, Lasso, ElasticNet, Lars, LassoLars, OrthogonalMatchingPursuit, BayesianRidge, ARDRegression, TheilSenRegressor, HuberRegressor, RANSACRegressor, LinearRegression, SGDRegressor, PassiveAggressiveClassifier, PassiveAggressiveRegressor, Ridge
-from sklearn.svm import SVC, LinearSVC, NuSVC, OneClassSVM, LinearSVR, NuSVR, SVR
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, GradientBoostingClassifier, AdaBoostClassifier, BaggingClassifier, RandomForestRegressor, ExtraTreesRegressor, GradientBoostingRegressor, AdaBoostRegressor, BaggingRegressor
-from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
-from sklearn.neighbors import KNeighborsClassifier, NearestCentroid, RadiusNeighborsRegressor, KNeighborsRegressor
-from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB, ComplementNB
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
-from sklearn.gaussian_process import GaussianProcessClassifier
-from sklearn.gaussian_process.kernels import RBF
-from xgboost import XGBClassifier
-from catboost import CatBoostClassifier
-from sklearn.neural_network import MLPClassifier
+# from sklearn.linear_model import LogisticRegression, SGDClassifier,PassiveAggressiveClassifier, RidgeClassifier, Perceptron, Lasso, ElasticNet, Lars, LassoLars, OrthogonalMatchingPursuit, BayesianRidge, ARDRegression, TheilSenRegressor, HuberRegressor, RANSACRegressor, LinearRegression, SGDRegressor, PassiveAggressiveClassifier, PassiveAggressiveRegressor, Ridge
+# from sklearn.svm import SVC, LinearSVC, NuSVC, OneClassSVM, LinearSVR, NuSVR, SVR
+# from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, GradientBoostingClassifier, AdaBoostClassifier, BaggingClassifier, RandomForestRegressor, ExtraTreesRegressor, GradientBoostingRegressor, AdaBoostRegressor, BaggingRegressor
+# from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
+# from sklearn.neighbors import KNeighborsClassifier, NearestCentroid, RadiusNeighborsRegressor, KNeighborsRegressor
+# from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB, ComplementNB
+# from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
+# from sklearn.gaussian_process import GaussianProcessClassifier
+# from sklearn.gaussian_process.kernels import RBF
+# from xgboost import XGBClassifier
+# from catboost import CatBoostClassifier
+# from sklearn.neural_network import MLPClassifier
 #import Linear SVR
 
 
