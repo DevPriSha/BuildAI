@@ -73,7 +73,7 @@ p {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 450px;
+  width: 460px;
 }
 .title span{
   font-family: 'Roboto Flex', sans-serif;

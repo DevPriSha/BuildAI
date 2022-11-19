@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
 #defaults
-task = 'sentiment-analysis'
+task = 'classification'
 feature_set = 'tfidf'
 vectorizer = 'count'
 features = ['text']
@@ -28,15 +28,13 @@ def api_headers():
     # Check if an ID was provided as part of the URL.
     # If ID is provided, assign it to a variable.
     # If no ID is provided, display an error in the browser.
-    if 'file' in request.args:
-        global file
-        file = request.args['file']
-    else:
-        return "Error: No file field provided. Please specify a file."
-
-    #load data
-    df = pd.read_csv(file)
+    # fetching file from the request and saving it
+    global file
+    file = request.files['dataset']
+    file.save("./Data/"+file.filename)
+    df = pd.read_csv("./Data/"+file.filename)
     potential_features = list(df.columns)
+    potential_labels = []
     for column in list(df.columns):
         if column == label:
             potential_features.remove(column)
@@ -57,10 +55,7 @@ def api_evaluate():
     # If ID is provided, assign it to a variable.
     # If no ID is provided, display an error in the browser.
     global file
-    if 'file' in request.args:
-        file = request.args['file']
-    else:
-        return "Error: No file field provided. Please specify a file."
+    
     if 'task' in request.args:
         global task
         task = request.args['task']
