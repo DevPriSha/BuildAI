@@ -97,46 +97,10 @@
 
                   <img src="../static/images/robo3.png" alt="" width= "30%;" class="float">
 
-                  <!-- <form class="input-form" action="">
-
-                    <div class="input-field-container flex">
-                      <div>
-                        <label for="dataset">Dataset</label>
-                      <input id="dataset" type="file" accept=".csv" required/>
-                      </div>
-                      
-                      <div>
-                        <label for="MLtask">Choose ML Task</label>
-                      <select id="MLtask" name="MLtask" required>
-                        <option value="sentiment">Sentiment Analysis</option>
-                        <option value="timeSeries">Time-Series Forecasting</option>
-                        <option value="multiClass">Multi-class classification</option>
-                        <option value="regression">Regression</option>
-                      </select>
-                      </div>
-                    </div>
-                    
-                    <input type="submit" value="Build Model">
-                  </form> -->
-
                   <div class="input-form">
                     <h1>Input</h1>	
-                    <form action="#" method="">	    
-                        <!-- <div class="form-row">
-                          <input class="form-elements" type="text" placeholder="First Name">
-                        </div>
-                        <div class="form-row">
-                          <input class="form-elements" type="text" placeholder="Last Name">
-                        </div>
-                      <div class="form-row">
-                        <input class="form-elements" type="email" placeholder="Email">
-                        </div>	    
-                        <div class="form-row">
-                          <input class="form-elements" type="number" placeholder="Phone">
-                        </div>	    
-                        <div class="form-row">
-                          <input class="form-elements" type="password" placeholder="password">
-                        </div>	     -->
+                    <form action="#" method="" id="inputForm">	    
+
                        <div class="form-row"> 
                            <label>Select any ML Task</label>		    
                           <select class="form-elements" required> 
@@ -146,27 +110,65 @@
                           <option value="regression">Regression</option>
                         </select>
                         </div>	
-                      <!-- <div class="form-row">
-                        <label>Gender:</label>		    
-                          <label><input type="radio" name="gender" value="male" checked> Male</label>
-                        <label><input type="radio" name="gender" value="female"> Female</label>
-                        <label><input type="radio" name="gender" value="other"> Other</label>
-                      </div>		
-                      <div class="form-row">
-                        <label>Do you have any vehicle?</label>			
-                        <label><input type="checkbox" value="Bike">I have a bike</label>
-                        <label><input type="checkbox" value="Car">I have a car </label>
-                      </div>		 -->
+              	
                       <div class="form-row">
                         <label>Upload your dataset</label>			
                         <input id="dataset" type="file" accept=".csv" required/>
                       </div>
-                      <!-- <div class="form-row">
-                        <textarea class="form-elements" rows="5" cols="50" placeholder="Type your address"></textarea>
-                        </div>	 -->
+
+                      <div class="form-row">
+                        <label>Runtime Device</label>		    
+                          <label><input type="radio" name="runtime" value="server" checked>Server-side</label>
+                        <label><input type="radio" name="runtime" value="client">Client-side</label>
+                      </div>	
+
                       <div class="form-row">
                           <button class="btn btn-primary" type="submit">NEXT</button>
                       </div>
+
+                      
+                      <div class="form-row">
+                        <label>Dataset Label Column</label>
+                        
+                        {% for col in label %}
+                          <label><input type="radio" name="dataLabel" value="${{ col }}" checked>{{ col }}</label>
+                          {% endfor %}
+                      </div>	
+
+                      <div class="form-row">
+                        <label>Dataset Feature Columns</label>	
+                        {% for col in label %}		
+                        <label><input type="checkbox" value="${{ col }}">{{ col }}</label>
+                        {% endfor %}
+                      </div>		
+
+                      <div class="form-row">
+                        <label>ML Models</label>			
+                        <label><input type="checkbox" value="Bike">I have a bike</label>
+                      </div>		
+
+
+                      <!-- {% for f in found %}
+      <tr>
+       <td>{{ f.name }}</td>
+       <td>{{ f.gender }}</td>
+       <td>{{ f.guardian_name }}</td>
+       <td>{{ f.guardian_contact }}</td>
+       <td>{{ f.address }}</td>
+       <td>{{ f.found_location }}</td>
+
+       <td class="image">
+        <img src= '../static/assets/case_images/found_people'>
+      </td>
+
+       <td>{{ f.missing_date }}</td>
+       <td>{{ f.found_date }}</td>
+      </tr>
+
+      {% endfor %} -->
+
+
+
                     </form>
                   </div>
 
@@ -200,6 +202,8 @@
     <script>
       var MAX_FILE_SIZE = 10 * 1024 * 1024;
       var dataset = document.querySelector("#dataset");
+      var input_form = document.querySelector('#inputForm');
+
 
       dataset.onchange = function() {
         if(this.files[0].size > MAX_FILE_SIZE){
@@ -210,6 +214,29 @@
             this.setCustomValidity("");
         };
       };
+
+
+      var input_fields = `<div class="form-row">
+                        <label>Dataset Label Column</label>
+                        
+                        {% for col in label %}
+                          <label><input type="radio" name="dataLabel" value="${{ col }}" checked>${{ col }}</label>
+                          {% endfor %}
+                      </div>	
+
+                      <div class="form-row">
+                        <label>Dataset Feature Columns</label>	
+                        {% for col in label %}		
+                        <label><input type="checkbox" value="${{ col }}">${{ col }}</label>
+                        {% endfor %}
+                      </div>		
+
+                      <div class="form-row">
+                        <label>ML Models</label>			
+                        <label><input type="checkbox" value="Bike">I have a bike</label>
+                      </div>`;
+
+      input_form.innerHTML = input_fields;
 
     </script>
 

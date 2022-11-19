@@ -33,6 +33,14 @@ def api_headers():
     file = request.files['dataset']
     file.save("./Data/"+file.filename)
     df = pd.read_csv("./Data/"+file.filename)
+
+    if 'task' in request.args:
+        global task
+        task = request.args['task']
+    else:
+        task = 'sentiment-analysis'
+
+
     potential_features = list(df.columns)
     potential_labels = []
     for column in list(df.columns):
@@ -46,7 +54,7 @@ def api_headers():
             else:
                 if df[column].dtype.name == 'float64':
                     potential_labels.append(column)
-    return jsonify(potential_features, potential_labels)
+    return render_template('index.html', task=task, features=potential_features, label=potential_labels)
 
 #route that gets all the arguments and returns evaluation metrics with graph
 @app.route('/models', methods=['GET', 'POST'])
@@ -55,12 +63,6 @@ def api_evaluate():
     # If ID is provided, assign it to a variable.
     # If no ID is provided, display an error in the browser.
     global file
-    
-    if 'task' in request.args:
-        global task
-        task = request.args['task']
-    else:
-        task = 'sentiment-analysis'
 
     if 'feature_set' in request.args:
         global feature_set
