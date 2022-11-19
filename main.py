@@ -71,6 +71,16 @@ def api_evaluate():
     # If no ID is provided, display an error in the browser.
     global file
 
+    file = request.files['dataset']
+
+    # if data folder doesn't exists
+    isExist = os.path.exists("Data")
+    if not isExist:
+        os.makedirs("Data")
+
+    file.save("./Data/" + file.filename)
+    df = pd.read_csv("./Data/" + file.filename)
+
     if 'feature_set' in request.args:
         global feature_set
         feature_set = request.args['feature_set']
@@ -87,13 +97,13 @@ def api_evaluate():
         global features
         features = request.args['features']
     else:
-        features = ['text']
+        features = list(df.columns)[:-1]
 
     if 'label' in request.args:
         global label
         label = request.args['label']
     else:
-        label = 'label'
+        label = 'species'
 
     if 'model' in request.args:
         global model
@@ -102,7 +112,7 @@ def api_evaluate():
         model = classifiers
 
     #load data
-    df = pd.read_csv(file)
+    # df = pd.read_csv(file)
     #pipeline: clean data, extract features, train model, evaluate model
     #get evaluation metrics
     top_models, filenames = pipeline_default(df, task, feature_set, vectorizer, features, label, model)

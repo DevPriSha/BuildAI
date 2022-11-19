@@ -99,7 +99,7 @@
 
                   <div class="input-form">
                     <h1>Input</h1>	
-                    <form action="/" method="" id="inputForm1" enctype="multipart/form-data" style="display: block;">	    
+                    <form action="/models" method="POST" id="inputForm" enctype="multipart/form-data" >	    
 
                        <div class="form-row"> 
                            <label>Select any ML Task</label>		    
@@ -143,10 +143,10 @@
 
               <div class="result">
                 <!-- <img src="../static/images/results.gif" alt=""> -->
-                <img src="../Graphs/accuracy.png" alt="">
+                <!-- <img src="../Graphs/accuracy.png" alt="">
                 <img src="../Graphs/f1.png" alt="">
                 <img src="../Graphs/precision.png" alt="">
-                <img src="../Graphs/recall.png" alt="">
+                <img src="../Graphs/recall.png" alt=""> -->
 
               </div>
 
@@ -158,8 +158,8 @@
     <script type="text/javascript">
       var MAX_FILE_SIZE = 10 * 1024 * 1024;
       var dataset = document.querySelector("#dataset");
-      var input_form = document.querySelector('#inputForm1');
-      var formDiv = document.querySelector('.input-form');
+      var input_form = document.querySelector('#inputForm');
+      // var formDiv = document.querySelector('.input-form');
 
       resultCont = document.querySelector('.result');
 
@@ -174,62 +174,21 @@
         };
       };
 
-
-      // input_form.addEventListener('click', event => {
-
-      //   input_form.style.display = "none";
-
-      //   label_column = ``;
-      //   feature_columns = ``;
-
-      //   {% for col in label %} 
-      //   label_column += `<label><input type="radio" name="dataLabel" value="{{ col }}" checked>{{ col }}</label>`;
-      //   {% endfor %}
-
-      //   {% for col in features %} 
-      //   feature_columns += `<label><input type="checkbox" value="{{ col }}">{{ col }}</label>`;
-      //   {% endfor %}
-
-      //   var input_fields = `<h1>Input</h1>	
-      //               <form action="/headers" method="POST" id="inputForm2" enctype="multipart/form-data">	   
-      //                 <div class="flex"> 
-      //                    <div class="form-row" style="box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px; padding: 20px;">
-      //                   <label>Dataset Label Column</label>
-                        
-      //                   ${label_column}
-      //                 </div>	
-
-      //                 <div class="form-row" style="box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px; padding: 20px;">
-      //                   <label>Dataset Feature Columns</label>	
-      //                   ${feature_columns}
-      //                 </div>		
-
-      //                 </div>
-
-      //                 <div class="form-row">
-      //                     <button class="btn btn-primary" type="submit">BUILD MODEL</button>
-      //                 </div>`;
-
       
-      // formDiv.appendChild(input_fields);
+        var graphs_content = '';
 
-      // graph_content = `<img src="../Graphs/accuracy.png" alt="">
-      //           <img src="../Graphs/f1.png" alt="">
-      //           <img src="../Graphs/precision.png" alt="">
-      //           <img src="../Graphs/recall.png" alt="">`;
+        {% if graph_filenames %}
 
-      // resultCont .innerHTML = graph_content;
-      // }) 
+      {% for name in graph_filenames %}
+      path = '../static/Graphs/' + '{{ name }}';
+      graphs_content += `<img src= ${path} alt="">`;
+      {% endfor %}
 
-  //     var graphs_content = '';
-  //     {% for name in graph_filename %}
-  //     path = '../Graph/' + '{{ name }}';
-  //     graphs_content += `<img src= ${path} alt="">`;
+      {% endif %}
 
-  //  {% endfor %}
-  //  resultCont .innerHTML = graphs_content;
-      
+       resultCont .innerHTML = graphs_content;
 
+       document.location.hash = 'result';
     </script>
 
 </body>

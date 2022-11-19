@@ -66,8 +66,10 @@ def comparisonvisualisations(X,y,X_test,y_test, user_models = list(classifiers.k
         plt.xlabel("Models")
         plt.title("Model vs " + metric + " Score")
         plt.tight_layout()
-        filename = './Graphs/{}-{}.png'.format(metric, time.strftime("%d-%m-%Y-%H-%M-%S"))
+        filename = './static/Graphs/{}-{}.png'.format(metric, time.strftime("%d-%m-%Y-%H-%M-%S"))
         plt.savefig(filename)
+
+        filename = filename[16:]
         filenames.append(filename)
     return top_models, filenames
 
