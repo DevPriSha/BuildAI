@@ -6,6 +6,9 @@
 
 
 @import url(//fonts.googleapis.com/css?family=Lato:300:400);
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100&display=swap');
 
 title h1 {
   font-family: 'Lato', sans-serif;
@@ -43,10 +46,11 @@ p {
 
 .flex { /*Flexbox for containers*/
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  text-align: center;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
 }
+
 
 .waves {
   position:relative;
@@ -62,7 +66,18 @@ p {
   /* height:20vh; */
   text-align:center;
   background-color: white;
-  margin: 100px auto;
+  margin: 80px auto;
+}
+
+.title{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 450px;
+}
+.title span{
+  font-family: 'Roboto Flex', sans-serif;
+  font-size: o.8em;
 }
 
 /* Animation */
@@ -108,14 +123,136 @@ p {
   }
 }
 
-/**************  INput form **************/
-.data-input {
-  margin: 150px auto;
+
+
+
+/*  */
+
+@keyframes move-vertical {
+  0% {
+    transform: translate3d(0,20px,0);
+   }
+   50%
+   {
+    transform: translate3d(0,-30px,0)
+   }
+   100% { 
+     transform: translate3d(0,20px,0);
+   }
+}
+.float {
+  animation: move-vertical 4s cubic-bezier(.55,.5,.45,.5)     infinite;
 }
 
+/**************  INput form **************/
+.data-input {
+  margin: 40px auto;
+}
+.cards-container {
+  padding: 25px;
+}
+.cards-container > h1, .result-container > h1, .input-form > h1 {
+  margin-bottom: 70px;
+  font-family: 'Roboto Slab', serif;
+}
 .cards {
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .cards .card {
-  border: 2px black solid;
+  /* border: 2px black solid; */
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  max-height: 300px;
+  width: 18%;
+  padding: 15px;
+
+  position: relative;
+  transition: 1s ease;
+}
+.cards .card:hover{
+  -webkit-transform: scale(1.15);
+  -ms-transform: scale(1.15);
+  transform: scale(1.15);
+  transition: 1s ease;
+  }
+
+.card > img {
+  width: 65%;
+}
+.card > h3 {
+  margin: 25px auto;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+
+/* INPUT form */
+.input-field-container > * {
+  display: flex;
+  flex-direction: column;
+}
+
+.result > img {
+  margin: 25px;
+  width: 570px;
+}
+
+
+/* **** codepen css*** */
+.input-form {
+  max-width: 550px;
+  width: 500px;
+  margin:20px;
+  /* background:#f5f5f5; */
+  padding: 20px 40px;
+  /* border:1px solid #ccc; */
+  /* box-shadow: 0 0px 10px rgba(0,0,0,0.30) */
+}
+.input-form h1 {
+  font-size:32px;
+  text-align:center;
+  /* color:tomato; */
+  /* font-weight:500; */
+  margin: 0 0 40px 0;
+  line-height:30px;
+}
+.form-row {
+  margin-bottom:35px;
+}
+.form-elements {
+  height:40px;
+  padding:10px;
+  box-sizing:border-box;
+  width:80%;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+textarea.form-elements {
+   height:100px;
+   resize:none; 
+}
+.form-row > label {
+  display:block;
+  margin-bottom:10px;
+  font-weight:500;
+  line-height:15px;
+  font-size: 1.05em;
+}
+.btn {
+  display:inline-block;
+  border:none;
+  padding: 10px 20px;
+  font-weight:600;
+  cursor:pointer;
+}
+.btn:hover {
+  opacity:0.8;
+}
+.btn-primary {
+  background:#2767de;
+  color:#fff;
+}
+.btn-danger {
+  background:#760714;
+  color:#fff;
 }
