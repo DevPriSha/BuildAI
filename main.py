@@ -4,6 +4,7 @@ from flask import request, jsonify, render_template
 from ml_models import classifiers
 from pipeline import pipeline_default
 import pandas as pd
+import os
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -31,6 +32,12 @@ def api_headers():
     # fetching file from the request and saving it
     global file
     file = request.files['dataset']
+
+    # if data folder doesn't exists
+    isExist = os.path.exists("Data")
+    if not isExist:
+        os.makedirs("Data")
+
     file.save("./Data/"+file.filename)
     df = pd.read_csv("./Data/"+file.filename)
 
@@ -42,18 +49,18 @@ def api_headers():
 
 
     potential_features = list(df.columns)
-    potential_labels = []
-    for column in list(df.columns):
-        if column == label:
-            potential_features.remove(column)
-            potential_labels = [column]
-        else:
-            if task != 'regression':
-                if df[column].dtype.name == 'category':
-                    potential_labels.append(column)
-            else:
-                if df[column].dtype.name == 'float64':
-                    potential_labels.append(column)
+    potential_labels = list(df.columns)
+    # for column in list(df.columns):
+        # if column == label:
+        #     potential_features.remove(column)
+        #     potential_labels = [column]
+        # else:
+        #     if task != 'regression':
+        #         if df[column].dtype.name == 'category':
+        #             potential_labels.append(column)
+        #     else:
+        #         if df[column].dtype.name == 'float64':
+        #             potential_labels.append(column)
     return render_template('index.html', task=task, features=potential_features, label=potential_labels)
 
 #route that gets all the arguments and returns evaluation metrics with graph

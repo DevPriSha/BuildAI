@@ -21,7 +21,7 @@
         <div class="title">
             <!--Just the logo.. Don't mind this-->
             <img src="../static/images/logo.png" alt="" width="40%">
-            <span>Get the Best ML Model for your Data <br>
+            <span>"Get the Best ML Model for your Data"<br>
               A one stop solution to all your ML problems. 
               BUILD.AI is a utility tool that helps you to visualize the perfomance of different ML models on your data and select the best. </span>
         </div>
@@ -99,7 +99,7 @@
 
                   <div class="input-form">
                     <h1>Input</h1>	
-                    <form action="#" method="" id="inputForm">	    
+                    <form action="/headers" method="POST" id="inputForm1" enctype="multipart/form-data" >	    
 
                        <div class="form-row"> 
                            <label>Select any ML Task</label>		    
@@ -113,7 +113,7 @@
               	
                       <div class="form-row">
                         <label>Upload your dataset</label>			
-                        <input id="dataset" type="file" accept=".csv" required/>
+                        <input id="dataset" name="dataset" type="file" accept=".csv" required/>
                       </div>
 
                       <div class="form-row">
@@ -125,49 +125,6 @@
                       <div class="form-row">
                           <button class="btn btn-primary" type="submit">NEXT</button>
                       </div>
-
-                      
-                      <div class="form-row">
-                        <label>Dataset Label Column</label>
-                        
-                        {% for col in label %}
-                          <label><input type="radio" name="dataLabel" value="${{ col }}" checked>{{ col }}</label>
-                          {% endfor %}
-                      </div>	
-
-                      <div class="form-row">
-                        <label>Dataset Feature Columns</label>	
-                        {% for col in label %}		
-                        <label><input type="checkbox" value="${{ col }}">{{ col }}</label>
-                        {% endfor %}
-                      </div>		
-
-                      <div class="form-row">
-                        <label>ML Models</label>			
-                        <label><input type="checkbox" value="Bike">I have a bike</label>
-                      </div>		
-
-
-                      <!-- {% for f in found %}
-      <tr>
-       <td>{{ f.name }}</td>
-       <td>{{ f.gender }}</td>
-       <td>{{ f.guardian_name }}</td>
-       <td>{{ f.guardian_contact }}</td>
-       <td>{{ f.address }}</td>
-       <td>{{ f.found_location }}</td>
-
-       <td class="image">
-        <img src= '../static/assets/case_images/found_people'>
-      </td>
-
-       <td>{{ f.missing_date }}</td>
-       <td>{{ f.found_date }}</td>
-      </tr>
-
-      {% endfor %} -->
-
-
 
                     </form>
                   </div>
@@ -199,10 +156,11 @@
     </div>
     <!--Content ends-->
 
-    <script>
+    <script type="text/javascript">
       var MAX_FILE_SIZE = 10 * 1024 * 1024;
       var dataset = document.querySelector("#dataset");
-      var input_form = document.querySelector('#inputForm');
+      var input_form = document.querySelector('#inputForm1');
+      var formDiv = document.querySelector('.input-form');
 
 
       dataset.onchange = function() {
@@ -216,27 +174,43 @@
       };
 
 
-      var input_fields = `<div class="form-row">
+      input_form.addEventListener('submit', event => {
+
+        label_column = ``;
+        feature_columns = ``;
+
+        {% for col in label %} 
+        label_column += `<label><input type="radio" name="dataLabel" value="{{ col }}" checked>{{ col }}</label>`;
+        {% endfor %}
+
+        {% for col in features %} 
+        feature_columns += `<label><input type="checkbox" value="{{ col }}">{{ col }}</label>`;
+        {% endfor %}
+
+        var input_fields = `<h1>Input</h1>	
+                    <form action="/headers" method="POST" id="inputForm2" enctype="multipart/form-data">	   
+                      <div class="flex"> 
+                         <div class="form-row" style="box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px; padding: 20px;">
                         <label>Dataset Label Column</label>
                         
-                        {% for col in label %}
-                          <label><input type="radio" name="dataLabel" value="${{ col }}" checked>${{ col }}</label>
-                          {% endfor %}
+                        ${label_column}
                       </div>	
 
-                      <div class="form-row">
+                      <div class="form-row" style="box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px; padding: 20px;">
                         <label>Dataset Feature Columns</label>	
-                        {% for col in label %}		
-                        <label><input type="checkbox" value="${{ col }}">${{ col }}</label>
-                        {% endfor %}
+                        ${feature_columns}
                       </div>		
 
+                      </div>
+
                       <div class="form-row">
-                        <label>ML Models</label>			
-                        <label><input type="checkbox" value="Bike">I have a bike</label>
+                          <button class="btn btn-primary" type="submit">BUILD MODEL</button>
                       </div>`;
 
-      input_form.innerHTML = input_fields;
+      
+      formDiv.innerHTML = input_fields;
+      }) 
+      
 
     </script>
 

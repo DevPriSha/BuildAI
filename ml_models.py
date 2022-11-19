@@ -5,7 +5,7 @@ from sklearn.linear_model import LogisticRegression, SGDClassifier,PassiveAggres
 from sklearn.svm import SVC, LinearSVC, NuSVC, OneClassSVM, LinearSVR, NuSVR, SVR
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, GradientBoostingClassifier, AdaBoostClassifier, BaggingClassifier, RandomForestRegressor, ExtraTreesRegressor, GradientBoostingRegressor, AdaBoostRegressor, BaggingRegressor
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
-from sklearn.neighbors import KNeighborsClassifier, NearestCentroid, RadiusNeighborsRegressor, KNeighborsRegressor 
+from sklearn.neighbors import KNeighborsClassifier, NearestCentroid, RadiusNeighborsRegressor, KNeighborsRegressor
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB, ComplementNB
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
 from sklearn.gaussian_process import GaussianProcessClassifier
