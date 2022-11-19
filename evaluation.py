@@ -54,7 +54,7 @@ def comparisonvisualisations(X,y,X_test,y_test, user_models = list(classifiers.k
     top_models = {}
     for metric in df.columns:
         if df[metric].dtype != 'object':
-            top_models[metric] = df[metric].idxmax()
+            top_models[metric] = df.nlargest(1, metric)['model'].values[0]
     filenames = []
     #create model vs metric bar graph for each metric
     for metric in df.columns:
@@ -62,6 +62,9 @@ def comparisonvisualisations(X,y,X_test,y_test, user_models = list(classifiers.k
             continue
         df.plot.bar(x='model', y=metric, color= random.choice(['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'pink', 'brown', 'grey', 'black']))
         # plt.show()
+        plt.ylabel(metric+" Score")
+        plt.xlabel("Models")
+        plt.title("Model vs " + metric + " Score")
         plt.tight_layout()
         filename = './Graphs/{}-{}.png'.format(metric, time.strftime("%d-%m-%Y-%H-%M-%S"))
         plt.savefig(filename)

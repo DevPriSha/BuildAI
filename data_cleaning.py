@@ -16,7 +16,7 @@ def clean_data_sentiment(df, label='label'):
     except:
         pass
     df = df[df[label] != 'Neutral']
-    df[label] = df['sentiment'].replace(['Positive', 'Negative'], [1, 0])
+    df[label] = df[label].replace(['Positive', 'Negative'], [1, 0])
     return df
 
 #clean data for time series forecasting
@@ -30,6 +30,9 @@ def clean_data_timeseries(df):
     df['date'] = pd.to_datetime(df['date'])
     df = df.set_index('date')
     df = df.sort_index()
+    for column in df.columns:
+        if df[column].dtype.name == 'category':
+            df[column] = pd.Categorical(df[column]).codes 
     return df
 
 #clean data for classification
@@ -67,7 +70,7 @@ def clean_data(df, label='label', task = 'sentiment'):
 #extract features
 def extract_features_text(df, vectorizer='tfidf', features=['text']):
     for feature in features:
-        if feature.dtype == 'object':
+        if df[feature].dtype == 'object':
             if vectorizer == 'tfidf':
                 from sklearn.feature_extraction.text import TfidfVectorizer
                 vectorizer = TfidfVectorizer()

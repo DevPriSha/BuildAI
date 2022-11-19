@@ -344,3 +344,9 @@ regressors = {"LinearRegression":LinearRegression1, "Ridge":RidgeRegression1, "L
 def get_model(model_name, X, y, X_Test, y_Test):
     model = classifiers[model_name](X,y,X_Test,y_Test)
     return model
+
+if __name__ == "__main__":
+    print(len(classifiers), "Classifiers Loaded")
+    print(len(regressors), "Regressors Loaded")
+    print("Classifiers: ", classifiers.keys())
+    print("Regressors: ", regressors.keys())

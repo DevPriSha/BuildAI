@@ -18,12 +18,12 @@ model = classifiers
 file = ""
 
 # A route to return all of the available entries in our catalog.
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('index.html')
 
 #route that gets a csv file and returns a list of headers
-@app.route('/api/v1/resources/data/headers', methods=['GET'])
+@app.route('/headers', methods=['GET', 'POST'])
 def api_headers():
     # Check if an ID was provided as part of the URL.
     # If ID is provided, assign it to a variable.
@@ -51,12 +51,16 @@ def api_headers():
     return jsonify(potential_features, potential_labels)
 
 #route that gets all the arguments and returns evaluation metrics with graph
-@app.route('/ml', methods=['GET'])
+@app.route('/models', methods=['GET', 'POST'])
 def api_evaluate():
     # Check if an ID was provided as part of the URL.
     # If ID is provided, assign it to a variable.
     # If no ID is provided, display an error in the browser.
     global file
+    if 'file' in request.args:
+        file = request.args['file']
+    else:
+        return "Error: No file field provided. Please specify a file."
     if 'task' in request.args:
         global task
         task = request.args['task']
@@ -99,11 +103,6 @@ def api_evaluate():
     #get evaluation metrics
     top_models, filenames = pipeline_default(df, task, feature_set, vectorizer, features, label, model)
     return jsonify(top_models, filenames)
-    
-
-
-
-    #return jsonify(eval_metrics)
 
 if __name__ == '__main__':
     app.run()

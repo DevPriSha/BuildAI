@@ -1,7 +1,7 @@
 import data_cleaning
 import evaluation
 import pandas as pd
-from ml_models import classifiers
+from ml_models import classifiers, regressors
 
 def pipeline_default(df, task, feature_set, vectorizer, features, label, model):
     #clean data
