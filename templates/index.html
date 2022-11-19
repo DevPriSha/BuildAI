@@ -143,11 +143,11 @@
 
               <div class="result">
                 <!-- <img src="../static/images/results.gif" alt=""> -->
+                <!-- <img src="../static/images/graph.jpeg" alt="">
                 <img src="../static/images/graph.jpeg" alt="">
                 <img src="../static/images/graph.jpeg" alt="">
                 <img src="../static/images/graph.jpeg" alt="">
-                <img src="../static/images/graph.jpeg" alt="">
-                <img src="../static/images/graph.jpeg" alt="">
+                <img src="../static/images/graph.jpeg" alt=""> -->
 
               </div>
 
@@ -161,6 +161,8 @@
       var dataset = document.querySelector("#dataset");
       var input_form = document.querySelector('#inputForm1');
       var formDiv = document.querySelector('.input-form');
+
+      resultCont = document.querySelector('.result');
 
 
       dataset.onchange = function() {
@@ -210,6 +212,14 @@
       
       formDiv.innerHTML = input_fields;
       }) 
+
+      var graphs_content = '';
+      {% for name in graph_filename %}
+      path = '../Graph/' + '{{ name }}';
+      graphs_content += `<img src= ${path} alt="">`;
+
+   {% endfor %}
+   resultCont .innerHTML = graphs_content;
       
 
     </script>
