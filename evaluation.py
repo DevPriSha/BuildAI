@@ -17,14 +17,12 @@ def get_evaluation_metrics(modelname, X,y,X_test,y_test):
 
 #evaluation metrics of a regression model
 def get_regression_metrics(modelname, X_train,y_train,X_test,y_test):
-    # print("///////////////modelname", modelname)
     model = get_model_regressor(modelname, X_train, y_train, X_test, y_test)
     y_pred = model.predict(X_test)
     nan_indices = np.argwhere(np.isnan(y_pred))
     if nan_indices.any():
         y_pred[nan_indices] = 0
 
-    # print('///////////////// r2_score:', r2_score(y_test, y_pred) )
     return {
         'model': modelname,
         'r2': r2_score(y_test, y_pred),
