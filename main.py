@@ -1,7 +1,7 @@
 #create a basic flask app
 import flask
 from flask import request, jsonify, render_template
-from ml_models import classifiers
+from ml_models import classifiers, regressors
 from pipeline import pipeline_default
 import pandas as pd
 import os
@@ -81,6 +81,10 @@ def api_evaluate():
     file.save("./Data/" + file.filename)
     df = pd.read_csv("./Data/" + file.filename)
 
+
+    if 'task' in request.form:
+        task = request.form['task']
+
     if 'feature_set' in request.args:
         global feature_set
         feature_set = request.args['feature_set']
@@ -103,13 +107,19 @@ def api_evaluate():
         global label
         label = request.args['label']
     else:
-        label = 'species'
+        if task == 'regression':
+            label = 'outcome'
+        else:
+            label = 'species'
 
     if 'model' in request.args:
         global model
         model = request.args['model']
     else:
-        model = classifiers
+        if task == 'regression':
+            model = regressors
+        else:
+            model = classifiers
 
     #load data
     # df = pd.read_csv(file)

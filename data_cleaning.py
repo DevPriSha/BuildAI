@@ -57,6 +57,8 @@ def clean_data_regression(df):
     return df
 
 def clean_data(df, label='label', task = 'sentiment'):
+    print("////////////clean data:", task)
+    print("////////////clean data:", label)
     if task == 'sentiment':
         df = clean_data_sentiment(df)
     elif task == 'timeseries':
