@@ -1,4 +1,4 @@
-from ml_models import regressors, classifiers, get_model
+from ml_models import regressors, classifiers, get_model_classifier, get_model_regressor
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error, accuracy_score, precision_score, recall_score, f1_score
 import numpy as np
 import seaborn as sns
@@ -16,9 +16,13 @@ def get_evaluation_metrics(modelname, X,y,X_test,y_test):
     return None
 
 #evaluation metrics of a regression model
-def get_regression_metrics(modelname, X,y,X_test,y_test):
-    model = get_model(modelname)
+def get_regression_metrics(modelname, X_train,y_train,X_test,y_test):
+    model = get_model_regressor(modelname, X_train, y_train, X_test, y_test)
     y_pred = model.predict(X_test)
+    nan_indices = np.argwhere(np.isnan(y_pred))
+    if nan_indices.any():
+        y_pred[nan_indices] = 0
+
     return {
         'model': modelname,
         'r2': r2_score(y_test, y_pred),
@@ -30,7 +34,7 @@ def get_regression_metrics(modelname, X,y,X_test,y_test):
 #evaluation metrics of a classification model
 def get_classification_metrics(modelname, X_train,y_train,X_test,y_test):
 
-    model = get_model(modelname, X_train, y_train, X_test, y_test)
+    model = get_model_classifier(modelname, X_train, y_train, X_test, y_test)
     y_pred = model.predict(X_test)
     return {
         'model': modelname,
@@ -51,6 +55,7 @@ def comparisonvisualisations(X,y,X_test,y_test, user_models = list(classifiers.k
     #create a dataframe of all evaluation metrics
     df = pd.DataFrame(eval_metrics)
     #get top model names for each metric
+    print("///////////////eval_metric:", df.head())
     top_models = {}
     for metric in df.columns:
         if df[metric].dtype != 'object':

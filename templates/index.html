@@ -1,195 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUILD.AI</title>
-    <link rel="stylesheet" href="../static/styles.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BUILD.AI</title>
+  <link rel="stylesheet" href="../static/styles.css">
 </head>
+
 <body>
 
-<div class="header">
+  <div class="header">
 
     <!--Content before waves-->
 
     <!-- About website -->
     <div class="inner-header flex">
 
-    <div class="about">
+      <div class="about">
 
         <div class="title">
-            <!--Just the logo.. Don't mind this-->
-            <img src="../static/images/logo.png" alt="" width="40%">
-            <span>"Get the Best ML Model for your Data"<br>
-              A one stop solution to all your ML problems. 
-              BUILD.AI is a utility tool that helps you to visualize the perfomance of different ML models on your data and select the best. </span>
+          <!--Just the logo.. Don't mind this-->
+          <img src="../static/images/logo.png" alt="" width="40%">
+          <span>"Get the Best ML Model for your Data"<br>
+            A one stop solution to all your ML problems.
+            BUILD.AI is a utility tool that helps you to visualize the perfomance of different ML models on your data
+            and select the best. </span>
         </div>
-    
+
+      </div>
+
+      <img src="../static/images/robo1.png" height="85%">
+
     </div>
 
-    <img src="../static/images/robo1.png" height="85%">
-
-    </div>
-    
 
     <!--Waves Container-->
     <div>
-    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-    <defs>
-    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-    </defs>
-    <g class="parallax">
-    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
-    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
-    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
-    <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
-    </g>
-    </svg>
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+          <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+        </g>
+      </svg>
     </div>
     <!--Waves end-->
-    
-</div>
-<!--Header ends-->
-    
-    <!--Content starts-->
+
+  </div>
+  <!--Header ends-->
+
+  <!--Content starts-->
 
 
-    <div class="content">
+  <div class="content">
 
-            <!-- ***** INPUT **** -->
-            <div class="input-container">
-                
-              <!-- *** CARDS *** -->
-                <div class="cards-container">
+    <!-- ***** INPUT **** -->
+    <div class="input-container">
 
-                  <h1>Machine Learning Tasks</h2>
+      <!-- *** CARDS *** -->
+      <div class="cards-container">
 
-                  <div class="cards flex">
+        <h1>Machine Learning Tasks</h2>
 
-                    <div class="card">
-                      <img src="../static/images/sentiment1.png">
-                      <h3>Sentiment Analysis</h3>
-                    </div>
+          <div class="cards flex">
 
-                    <div class="card">
-                      <img src="../static/images/time-series1.png">
-                      <h3>Time-series Forecasting</h3>
-                    </div>
-
-                    <div class="card">
-                      <img src="../static/images/multiclass.png">
-                      <h3>Multi-class Classification</h3>
-                    </div>
-
-                    <div class="card">
-                      <img src="../static/images/regression1.jpg">
-                      <h3>Regression</h3>
-                    </div>
-
-                  </div>
-                  
-                </div>
-
-                <!-- *** Input Form *** -->
-                <div class="data-input flex">
-
-                  <img src="../static/images/robo3.png" alt="" width= "30%;" class="float">
-
-                  <div class="input-form">
-                    <h1>Input</h1>	
-                    <form action="/models" method="POST" id="inputForm" enctype="multipart/form-data" >	    
-
-                       <div class="form-row"> 
-                           <label>Select any ML Task</label>		    
-                          <select class="form-elements" required> 
-                          <option value="sentiment">Sentiment Analysis</option>
-                          <option value="timeSeries">Time-Series Forecasting</option>
-                          <option value="multiClass">Multi-class classification</option>
-                          <option value="regression">Regression</option>
-                        </select>
-                        </div>	
-              	
-                      <div class="form-row">
-                        <label>Upload your dataset</label>			
-                        <input id="dataset" name="dataset" type="file" accept=".csv" required/>
-                      </div>
-
-                      <div class="form-row">
-                        <label>Runtime Device</label>		    
-                          <label><input type="radio" name="runtime" value="server" checked>Server-side</label>
-                        <label><input type="radio" name="runtime" value="client">Client-side</label>
-                      </div>	
-
-                      <div class="form-row">
-                          <button class="btn btn-primary" type="submit">BUILD MODEL</button>
-                      </div>
-
-                    </form>
-                  </div>
-
-                </div>
-                  
-
+            <div class="card">
+              <img src="../static/images/sentiment1.png">
+              <h3>Sentiment Analysis</h3>
             </div>
-            <!-- input container ends -->
+
+            <div class="card">
+              <img src="../static/images/time-series1.png">
+              <h3>Time-series Forecasting</h3>
+            </div>
+
+            <div class="card">
+              <img src="../static/images/multiclass.png">
+              <h3>Multi-class Classification</h3>
+            </div>
+
+            <div class="card">
+              <img src="../static/images/regression1.jpg">
+              <h3>Regression</h3>
+            </div>
+
+          </div>
+
+      </div>
+
+      <!-- *** Input Form *** -->
+      <div class="data-input flex">
+
+        <img src="../static/images/robo3.png" alt="" width="30%;" class="float">
+
+        <div class="input-form">
+          <h1>Input</h1>
+          <form action="/models" method="POST" id="inputForm" enctype="multipart/form-data">
+
+            <div class="form-row">
+              <label>Select any ML Task</label>
+              <select name="task" class="form-elements" required>
+                <option value="sentiment">Sentiment Analysis</option>
+                <option value="timeseries">Time-Series Forecasting</option>
+                <option value="classification">Multi-class classification</option>
+                <option value="regression">Regression</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label>Upload your dataset</label>
+              <input id="dataset" name="dataset" type="file" accept=".csv" required />
+            </div>
+
+            <div class="form-row">
+              <label>Runtime Device</label>
+              <label><input type="radio" name="runtime" value="server" checked>Server-side</label>
+              <label><input type="radio" name="runtime" value="client">Client-side</label>
+            </div>
+
+            <div class="form-row">
+              <button class="btn btn-primary" type="submit">BUILD MODEL</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
 
 
-            <!-- **** RESULTS **** -->
-            <div class="result-container">
+    </div>
+    <!-- input container ends -->
 
-              <h1>Results</h1>
 
-              <div class="result">
-                <!-- <img src="../static/images/results.gif" alt=""> -->
-                <!-- <img src="../Graphs/accuracy.png" alt="">
+    <!-- **** RESULTS **** -->
+    <div class="result-container">
+
+      <h1>Results</h1>
+
+      <div class="result">
+        <!-- <img src="../static/images/results.gif" alt=""> -->
+        <!-- <img src="../Graphs/accuracy.png" alt="">
                 <img src="../Graphs/f1.png" alt="">
                 <img src="../Graphs/precision.png" alt="">
                 <img src="../Graphs/recall.png" alt=""> -->
 
-              </div>
+      </div>
 
-            </div>
-        
     </div>
-    <!--Content ends-->
 
-    <script type="text/javascript">
-      var MAX_FILE_SIZE = 10 * 1024 * 1024;
-      var dataset = document.querySelector("#dataset");
-      var input_form = document.querySelector('#inputForm');
-      // var formDiv = document.querySelector('.input-form');
+  </div>
+  <!--Content ends-->
 
-      resultCont = document.querySelector('.result');
+  <script type="text/javascript">
+    var MAX_FILE_SIZE = 10 * 1024 * 1024;
+    var dataset = document.querySelector("#dataset");
+    var input_form = document.querySelector('#inputForm');
+    // var formDiv = document.querySelector('.input-form');
+
+    resultCont = document.querySelector('.result');
 
 
-      dataset.onchange = function() {
-        if(this.files[0].size > MAX_FILE_SIZE){
-          this.setCustomValidity("File must not exceed 10 MB!");
-            this.reportValidity();
-         }
-         else {
-            this.setCustomValidity("");
-        };
+    dataset.onchange = function () {
+      if (this.files[0].size > MAX_FILE_SIZE) {
+        this.setCustomValidity("File must not exceed 10 MB!");
+        this.reportValidity();
+      }
+      else {
+        this.setCustomValidity("");
       };
+    };
 
-      
-        var graphs_content = '';
 
-        {% if graph_filenames %}
+    var graphs_content = '';
 
-      {% for name in graph_filenames %}
-      path = '../static/Graphs/' + '{{ name }}';
-      graphs_content += `<img src= ${path} alt="">`;
-      {% endfor %}
+    {% if graph_filenames %}
 
-      {% endif %}
+    {% for name in graph_filenames %}
+    path = '../static/Graphs/' + '{{ name }}';
+    graphs_content += `<img src= ${path} alt="">`;
+    {% endfor %}
 
-       resultCont .innerHTML = graphs_content;
+    {% endif %}
 
-       document.location.hash = 'result';
-    </script>
+    resultCont.innerHTML = graphs_content;
+
+    document.location.hash = 'result';
+  </script>
 
 </body>
+
 </html>

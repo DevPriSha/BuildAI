@@ -338,11 +338,15 @@ def RandomForestRegression1(X,y,X_Test,y_Test):
 #create a list of all the functions
 classifiers = {"LogisticRegression":Logistic1, "SVM": SVM1, "Random Forest": RandomForest1, "XGBoost": XGBoost1, "CatBoost": CatBoost1, "Passive Aggressive": PassiveAggressive1, "AdaBoost": AdaBoost1, "Gradient Boosting": GradientBoosting1, "Linear Discriminant Analysis": LDA1, "Quadratic Discriminant Analysis": QDA1, "K Neighbors": KNN1, "Decision Tree": DecisionTree1, "Extra Trees": ExtraTrees1, "Gaussian Process": GaussianProcess1, "Bagging": Bagging1, "Linear SVC": LinearSVM1, "NuSVC": NuSVC1, "One Class SVM": OneClassSVM1, "Multinomial Naive Bayes": MultinomialNB1, "Bernoulli Naive Bayes": BernoulliNB1, "Complement Naive Bayes": ComplementNB1}
 
-regressors = {"LinearRegression":LinearRegression1, "Ridge":RidgeRegression1, "Lasso":LassoRegression1, "ElasticNet":ElasticNetRegression1, "Lars":LarsRegression1, "LassoLars":LassoLarsRegression1, "OrthogonalMatchingPursuit":OrthogonalMatchingPursuitRegression1, "BayesianRidge":BayesianRidgeRegression1, "ARDRegression":ARDRegression1, "SGDRegressor":SGDRegression1, "PassiveAggressiveRegressor":PassiveAggressiveRegression1, "TheilSenRegressor":TheilSenRegression1, "HuberRegressor":HuberRegression1, "RANSACRegressor":RANSACRegression1, "LinearSVR":LinearSVR1, "NuSVR":NuSVR1, "KNeighborsRegressor":KNeighborsRegression1, "RadiusNeighborsRegressor":RadiusNeighborsRegression1, "DecisionTreeRegressor":DecisionTreeRegression1, "ExtraTreesRegressor":ExtraTreesRegression1, "RandomForestRegressor":RandomForestRegression1}
+regressors = {"LinearRegression":LinearRegression1, "Ridge":RidgeRegression1, "Lasso":LassoRegression1, "ElasticNet":ElasticNetRegression1, "Lars":LarsRegression1, "LassoLars":LassoLarsRegression1, "OrthogonalMatchingPursuit":OrthogonalMatchingPursuitRegression1, "BayesianRidge":BayesianRidgeRegression1, "ARDRegression":ARDRegression1, "PassiveAggressiveRegressor":PassiveAggressiveRegression1, "TheilSenRegressor":TheilSenRegression1, "HuberRegressor":HuberRegression1, "RANSACRegressor":RANSACRegression1, "LinearSVR":LinearSVR1, "NuSVR":NuSVR1, "KNeighborsRegressor":KNeighborsRegression1, "RadiusNeighborsRegressor":RadiusNeighborsRegression1, "DecisionTreeRegressor":DecisionTreeRegression1, "ExtraTreesRegressor":ExtraTreesRegression1, "RandomForestRegressor":RandomForestRegression1}
 
 #function to get model name as string and run the function from the dictionary
-def get_model(model_name, X, y, X_Test, y_Test):
+def get_model_classifier(model_name, X, y, X_Test, y_Test):
     model = classifiers[model_name](X,y,X_Test,y_Test)
+    return model
+
+def get_model_regressor(model_name, X, y, X_Test, y_Test):
+    model = regressors[model_name](X,y,X_Test,y_Test)
     return model
 
 if __name__ == "__main__":
