@@ -110,7 +110,7 @@ def api_evaluate():
         if task == 'regression':
             label = 'outcome'
         else:
-            label = 'species'
+            label = df.columns[-1]
 
     if 'model' in request.args:
         global model

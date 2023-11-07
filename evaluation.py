@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import time
 import random
+import matplotlib
 
 #evaluation metrics of a model
 def get_evaluation_metrics(modelname, X,y,X_test,y_test):
@@ -61,6 +62,7 @@ def comparisonvisualisations(X,y,X_test,y_test, user_models = list(classifiers.k
         if df[metric].dtype != 'object':
             top_models[metric] = df.nlargest(1, metric)['model'].values[0]
     filenames = []
+    matplotlib.pyplot.switch_backend('Agg')
     #create model vs metric bar graph for each metric
     for metric in df.columns:
         if metric == 'model':
