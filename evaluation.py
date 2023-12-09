@@ -18,7 +18,13 @@ def get_evaluation_metrics(modelname, X,y,X_test,y_test):
 
 #evaluation metrics of a regression model
 def get_regression_metrics(modelname, X_train,y_train,X_test,y_test):
-    model = get_model_regressor(modelname, X_train, y_train, X_test, y_test)
+    try:
+        model = get_model_regressor(modelname, X_train, y_train, X_test, y_test)
+    except:
+        print("Error in model: ", modelname)
+        return {
+            
+        }
     y_pred = model.predict(X_test)
     nan_indices = np.argwhere(np.isnan(y_pred))
     if nan_indices.any():
@@ -35,7 +41,13 @@ def get_regression_metrics(modelname, X_train,y_train,X_test,y_test):
 #evaluation metrics of a classification model
 def get_classification_metrics(modelname, X_train,y_train,X_test,y_test):
 
-    model = get_model_classifier(modelname, X_train, y_train, X_test, y_test)
+    try:
+        model = get_model_classifier(modelname, X_train, y_train, X_test, y_test)
+    except:
+        print("Error in model: ", modelname)
+        return {
+            
+        }
     y_pred = model.predict(X_test)
     return {
         'model': modelname,
@@ -55,12 +67,16 @@ def comparisonvisualisations(X,y,X_test,y_test, user_models = list(classifiers.k
             eval_metrics.append(get_classification_metrics(model, X,y,X_test,y_test))
     #create a dataframe of all evaluation metrics
     df = pd.DataFrame(eval_metrics)
-    #get top model names for each metric
-    print("///////////////eval_metric:", df.head())
+    #get best performing model name and its score for each metric
     top_models = {}
     for metric in df.columns:
-        if df[metric].dtype != 'object':
-            top_models[metric] = df.nlargest(1, metric)['model'].values[0]
+        if metric == 'model':
+            continue
+        top_models[metric] = df.loc[df[metric].idxmax()]['model']
+        top_models[metric+' score'] = df.loc[df[metric].idxmax()][metric]
+        
+    
+    
     filenames = []
     matplotlib.pyplot.switch_backend('Agg')
     #create model vs metric bar graph for each metric
