@@ -5,7 +5,7 @@ from ml_models import classifiers, regressors
 
 def pipeline_default(df, task, feature_set, vectorizer, features, label, model):
     #clean data
-    df = data_cleaning.clean_data(df, label, task)
+    df = data_cleaning.clean_data(df, label, task, feature = features)
     #extract features
     X_train, X_test, y_train, y_test  = data_cleaning.extract_features(df, features, label, vectorizer='tfidf')
     #train model
