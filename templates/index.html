@@ -145,11 +145,39 @@
       <h1>Results</h1>
 
       <div id="result">
-        <!-- <img src="../static/images/results.gif" alt=""> -->
-        <!-- <img src="../Graphs/accuracy.png" alt="">
-                <img src="../Graphs/f1.png" alt="">
-                <img src="../Graphs/precision.png" alt="">
-                <img src="../Graphs/recall.png" alt=""> -->
+<!--         <img src="../static/images/results.gif" alt="">-->
+<!--        <div class="result-graph">-->
+<!--          <img src="../Graphs/accuracy.png" alt="">-->
+<!--          <div class="top-model">-->
+<!--            <h2>Top Model: XGBoost </h2>-->
+<!--            <h2>Score: 25</h2>-->
+<!--          </div>-->
+
+<!--        </div>-->
+
+<!--        <div class="result-graph">-->
+<!--                <img src="../Graphs/f1.png" alt="">-->
+<!--         <div class="top-model">-->
+<!--            <h2>Top Model: </h2>-->
+<!--            <h2>Score: </h2>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--          <div class="result-graph">-->
+<!--                <img src="../Graphs/precision.png" alt="">-->
+<!--         <div class="top-model">-->
+<!--            <h2>Top Model: </h2>-->
+<!--            <h2>Score: </h2>-->
+<!--          </div>-->
+<!--          </div>-->
+
+<!--            <div class="result-graph">-->
+<!--                <img src="../Graphs/recall.png" alt="">-->
+<!--         <div class="top-model">-->
+<!--            <h2>Top Model: </h2>-->
+<!--            <h2>Score: </h2>-->
+<!--          </div>-->
+<!--            </div>-->
 
       </div>
 
@@ -184,7 +212,15 @@
 
     {% for name in graph_filenames %}
     path = '../static/Graphs/' + '{{ name }}';
-    graphs_content += `<img src= ${path} alt="">`;
+
+    graphs_content += `<div class="result-graph">
+          <img src=${path} alt="">
+         <div class="top-model">
+           <h2>Top Model:  </h2>
+           <h2>Score: 25</h2>
+         </div>
+       </div>`;
+
     {% endfor %}
 
     {% endif %}
