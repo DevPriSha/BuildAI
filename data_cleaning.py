@@ -4,19 +4,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import time
+import nltk
+from nltk.stem import WordNetLemmatizer
+nltk.download('wordnet')
 
 #need features and labels
 
 #clean data for sentiment analysis
-def clean_data_sentiment(df, label='label'):
-    df = df.dropna()
+def clean_data_sentiment(df, label='label',  features = ['text']):
+    df = df.dropna(axis=0, how='any')
     df = df.drop_duplicates()
     try:
         df = df.drop(['id'], axis=1)
     except:
         pass
-    df = df[df[label] != 'Neutral']
+    df = df[df[label].isin(['Positive', 'Negative'])]
     df[label] = df[label].replace(['Positive', 'Negative'], [1, 0])
+    lemmatizer = WordNetLemmatizer()
+
+    for feature in features:
+        if df[feature].dtype == 'object':
+            df[feature] = df[feature].str.lower()
+            df[feature] = df[feature].str.replace(r'[^\w\s]', '', regex=True)
+            df[feature] = df[feature].str.replace(r'\d+', '', regex=True)
+            df[feature] = df[feature].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
+
     return df
 
 #clean data for time series forecasting
@@ -56,9 +68,9 @@ def clean_data_regression(df):
         pass
     return df
 
-def clean_data(df, label='label', task = 'sentiment'):
+def clean_data(df, label='label', task = 'sentiment', feature = ['text']):
     if task == 'sentiment':
-        df = clean_data_sentiment(df)
+        df = clean_data_sentiment(df, label, feature)
     elif task == 'timeseries':
         df = clean_data_timeseries(df)
     elif task == 'classification':
@@ -103,7 +115,8 @@ def extract_features(df, features=['text'], label='label', vectorizer='tfidf'):
             df2[feature] = df[feature].astype(df[feature].dtype)
             X = df2.values
         else:
-            X = extract_features_text(df, vectorizer)
+            X = extract_features_text(df, vectorizer, features)
+
     X_train, X_test, y_train, y_test = train_test_split(X, df, label)
     return X_train, X_test, y_train, y_test
 
