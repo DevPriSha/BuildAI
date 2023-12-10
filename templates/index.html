@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BUILD.AI</title>
   <link rel="stylesheet" href="../static/styles.css">
+
+
 </head>
 
 <body>
@@ -102,7 +104,7 @@
 
         <div class="input-form">
           <h1>Input</h1>
-          <form action="/models" method="POST" id="inputForm" enctype="multipart/form-data">
+          <form method="POST" id="inputForm" enctype="multipart/form-data">
 
             <div class="form-row">
               <label>Select any ML Task</label>
@@ -125,11 +127,42 @@
               <label><input type="radio" name="runtime" value="client">Client-side</label>
             </div>
 
+
             <div class="form-row">
-              <button class="btn btn-primary" type="submit">BUILD MODEL</button>
+              <button class="btn btn-primary" type="submit" id="chooseFeaturesBtn">CHOOSE FEATURES AND LABELS</button>
             </div>
 
+            <!-- <p>Task: {{ task }}</p> -->
+
+            <div id="choose">
+              {% if features %}
+            <fieldset>
+              <legend>Choose Features:</legend>
+              {% for feature in features %}
+              <label>
+                <input type="checkbox" name="features" value="{{ feature }}"> {{ feature }}
+              </label>
+              {% endfor %}
+            </fieldset>
+
+            {% endif %}
+            {% if label %}
+            <fieldset>
+              <legend>Choose Label:</legend>
+              {% for l in label %}
+              <label>
+                <input type="radio" name="label" value="{{ l }}"> {{ l }}
+              </label>
+              {% endfor %}
+            </fieldset>
+            {% endif %}
+          </div>
+            <div class="form-row">
+              <button class="btn btn-primary" type="submit" id="buildModelBtn">BUILD MODEL</button>
+            </div>
           </form>
+
+
         </div>
 
       </div>
@@ -194,6 +227,24 @@
     document.location.hash = 'result';
   </script>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("inputForm");
+      const buildModelButton = document.getElementById("buildModelBtn");
+      const chooseFeaturesButton = document.getElementById("chooseFeaturesBtn");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        if (event.submitter === buildModelButton) {
+          form.action = "/models";
+        } else if (event.submitter === chooseFeaturesButton) {
+          form.action = "/headers";
+        }
+        form.submit();
+      });
+    });
+  </script>
 </body>
 
 </html>

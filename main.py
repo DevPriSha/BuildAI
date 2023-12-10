@@ -26,6 +26,7 @@ def home():
 #route that gets a csv file and returns a list of headers
 @app.route('/headers', methods=['GET', 'POST'])
 def api_headers():
+    print("HEY HEYYY")
     # Check if an ID was provided as part of the URL.
     # If ID is provided, assign it to a variable.
     # If no ID is provided, display an error in the browser.
@@ -63,9 +64,10 @@ def api_headers():
         #             potential_labels.append(column)
     return render_template('index.html', task=task, features=potential_features, label=potential_labels)
 
-#route that gets all the arguments and returns evaluation metrics with graph
+# route that gets all the arguments and returns evaluation metrics with graph
 @app.route('/models', methods=['GET', 'POST'])
 def api_evaluate():
+    print("MODELS")
     # Check if an ID was provided as part of the URL.
     # If ID is provided, assign it to a variable.
     # If no ID is provided, display an error in the browser.
