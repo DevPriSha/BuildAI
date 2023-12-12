@@ -6,6 +6,34 @@ from pipeline import pipeline_default
 import pandas as pd
 import os
 
+def formatresult(topmodels, filenames):
+    result = {}
+
+# Iterate through each metric in topmodels
+    for metric in topmodels.keys():
+        if metric.endswith('score'):
+            metric_name = metric.split(' ')[0]  # Extracting metric name without 'score'
+            top_model = topmodels[metric_name]
+            score = topmodels[metric]
+        else:
+            metric_name = metric
+            top_model = topmodels[metric]
+            score = topmodels[f"{metric_name} score"]
+
+        # Get the filename of the graph
+        for filename in filenames:
+            if metric_name in filename:
+                graph_filename = filename
+                break
+        # Create the dictionary for the current metric
+        result[metric_name] = {
+            "graph": graph_filename,
+            "top": top_model,
+            "score": score
+        }
+    return result
+
+
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -125,7 +153,13 @@ def api_evaluate():
     #pipeline: clean data, extract features, train model, evaluate model
     #get evaluation metrics
     top_models, filenames = pipeline_default(df, task, feature_set, vectorizer, features, label, model)
-    return render_template('index.html', graph_filenames = filenames, top_model = top_models)
+    # results =  {metric: {graph: filename, top_model: modelname, top_model_score: score}}
+    print("LALALALALALALALALALALA\\\\\\\\\\\\\\\\\\\\\\\\\\\///////////////////////")
+    print(top_models)
+    print(filenames)
+    results = formatresult(top_models, filenames)
+    print(results)
+    return render_template('index.html', result = results)
     # return jsonify(top_models, filenames)
 
 if __name__ == '__main__':
