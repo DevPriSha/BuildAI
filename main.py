@@ -125,7 +125,7 @@ def api_evaluate():
     #pipeline: clean data, extract features, train model, evaluate model
     #get evaluation metrics
     top_models, filenames = pipeline_default(df, task, feature_set, vectorizer, features, label, model)
-    return render_template('index.html', graph_filenames = filenames)
+    return render_template('index.html', graph_filenames = filenames, top_model = top_models)
     # return jsonify(top_models, filenames)
 
 if __name__ == '__main__':

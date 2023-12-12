@@ -192,11 +192,32 @@ p {
   flex-direction: column;
 }
 
-#result > img {
-  margin: 25px;
-  width: 570px;
+#result {
+margin: 3%;
 }
 
+#result > .result-graph {
+float: inline-start;
+  margin: 30px;
+}
+#result > img {
+  width: 570px;
+}
+#result .top-model {
+display: flex;
+justify-content: center;
+}
+
+#result .top-model h2:nth-child(1) {
+margin-right: 50px;
+font-size: 1.3rem;
+font-family: sans-serif;
+}
+#result .top-model h2:nth-child(2) {
+margin-left: 50px;
+font-size: 1.3rem;
+font-family: sans-serif;
+}
 
 /* **** codepen css*** */
 .input-form {
