@@ -14,11 +14,11 @@ def formatresult(topmodels, filenames):
         if metric.endswith('score'):
             metric_name = metric.split(' ')[0]  # Extracting metric name without 'score'
             top_model = topmodels[metric_name]
-            score = topmodels[metric]
+            score = "{:.2f}".format(topmodels[metric])
         else:
             metric_name = metric
             top_model = topmodels[metric]
-            score = topmodels[f"{metric_name} score"]
+            score = "{:.2f}".format(topmodels[f"{metric_name} score"])
 
         # Get the filename of the graph
         for filename in filenames:
@@ -159,7 +159,7 @@ def api_evaluate():
     print(filenames)
     results = formatresult(top_models, filenames)
     print(results)
-    return render_template('index.html', result = results)
+    return render_template('index.html', model_result = results)
     # return jsonify(top_models, filenames)
 
 if __name__ == '__main__':

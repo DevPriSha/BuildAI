@@ -236,26 +236,26 @@
 
     var graphs_content = '';
 
-    {% if graph_filenames %}
+    {% if model_result %}
 
-    {% for name in graph_filenames %}
-    path = '../static/Graphs/' + '{{ name }}';
+    {% for graphs, params in model_result.items() %}
+
+    path = '../static/Graphs/' + '{{ params["graph"] }}';
 
     graphs_content += `<div class="result-graph">
           <img src=${path} alt="">
          <div class="top-model">
-           <h2>Top Model:  </h2>
-           <h2>Score: 25</h2>
+           <h2>Top Model: {{ params["top"] }} </h2>
+           <h2>Score: {{ params["score"] }}</h2>
          </div>
        </div>`;
 
     {% endfor %}
 
+    document.location.hash = 'result';
     {% endif %}
 
     resultCont.innerHTML = graphs_content;
-
-    document.location.hash = 'result';
   </script>
 
   <script>
